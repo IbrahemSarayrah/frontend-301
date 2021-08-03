@@ -9,7 +9,7 @@ export class UpdateFavDataModal extends Component {
               <Modal.Title>Update The Data</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form onSubmit={this.props.UpdateFavData}>
                 <Form.Control type="text" name='updateTitle' defaultValue={this.props.updateTitle} />
                 <br/>
                 <Form.Control type="text" name='updateImageUrl' defaultValue={this.props.updateImageUrl} />

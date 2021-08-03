@@ -44,12 +44,32 @@ componentDidMount = async () => {
   showUpdateModal= async(index)=> {
     await this.setState({
       showModal:true,
-      updateTitle:this.state.myFavData[index].updateTitle,
-      updateImageUrl:this.state.myFavData[index].updateImageUrl,
+      updateTitle:this.state.myFavData[index].title,
+      updateImageUrl:this.state.myFavData[index].imageUrl,
       index:index
     })
     console.log(this.state.updateTitle);
   }
+
+
+  UpdateFavData = async(event)=> {
+
+    event.preventDefault();
+
+    let updateObj ={
+
+      updateTitle:event.target.updateTitle.value,
+      updateImageUrl:event.target.updateImageUrl.value,
+      email:this.props.auth0.user.email
+    }
+      let myFavData= await axios.put(`${process.env.REACT_APP_SERVER}/update/${this.state.index}?email=${this.props.auth0.user.email}`, updateObj)
+
+      this.setState({
+        myFavData:myFavData.data
+      })
+  }
+
+  
 
 
   handleClose = ()=> {
@@ -80,6 +100,7 @@ componentDidMount = async () => {
           handleClose={this.handleClose}
           updateTitle={this.state.updateTitle}
           updateImageUrl={this.state.updateImageUrl}
+          UpdateFavData={this.UpdateFavData}
         />
       </>
     )
